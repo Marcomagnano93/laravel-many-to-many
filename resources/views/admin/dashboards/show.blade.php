@@ -17,6 +17,14 @@
             <div>
                 <p>Apri il progetto su <a href="{{ $dashboard->git }}">GitHub</a></p>
             </div>
+            <div>
+                <h5>Tecnologie utilizzate:</h5>
+                <ul>
+                    @foreach($dashboard->tecnologies as $tecnology) 
+                    <li>{{ $tecnology->name }}</li>
+                    @endforeach
+                </ul>
+            </div>
             
             <div class="my-3">
                 <a href="{{route('admin.dashboards.edit', $dashboard)}}" class="btn btn-success btn">Modifica</a>

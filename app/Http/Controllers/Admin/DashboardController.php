@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Dashboard;
 use App\Models\Type;
+use App\Models\Tecnology;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -27,8 +28,9 @@ class DashboardController extends Controller
         {
 
             $types = Type::orderBy('name', 'asc')->get();
+            $tecnologies = Tecnology::orderBy('name', 'asc')->get();
 
-            return view('admin.dashboards.create', compact('types'));
+            return view('admin.dashboards.create', compact('types', 'tecnologies'));
         }
 
         /**
@@ -41,12 +43,19 @@ class DashboardController extends Controller
                 'title'=>'required|max:255',
                 'git'=>'required|url',
                 'type_id' => 'nullable|exists:types,id',
+                'tecnologies' => 'exists:tecnologies,id',
                 'description'=>'required'
             ]);
 
             $form_data = $request->all();
-
+            
             $new_project = Dashboard::create($form_data);
+
+
+            if ($request->has('tecnologies')) {
+                $new_project->tecnologies()->attach($request->tecnologies);
+            }
+
 
             return to_route('admin.dashboards.show', $new_project);
     
