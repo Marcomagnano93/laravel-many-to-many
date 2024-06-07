@@ -79,8 +79,9 @@ class DashboardController extends Controller
         {
 
             $types = Type::orderBy('name', 'asc')->get();
+            $tecnologies = Tecnology::orderBy('name', 'asc')->get();
 
-            return view('admin.dashboards.edit', compact('dashboard', 'types'));
+            return view('admin.dashboards.edit', compact('dashboard', 'types', 'tecnologies'));
         }
 
         /**
@@ -92,13 +93,18 @@ class DashboardController extends Controller
                 'title'=>'required|max:255',
                 'git'=>'required|url',
                 'type_id' => 'nullable|exists:types,id',
+                'tecnologies' => 'exists:tecnologies,id',
                 'description'=>'required'
             ]);
 
             $form_data = $request->all();
 
             $dashboard->update($form_data);
-
+            if ($request->has('tecnologies')) {
+                $dashboard->tecnologies()->sync($request->tecnologies);
+            } else {
+                $dashboard->tecnologies()->detach();
+            }
             return to_route('admin.dashboards.index', $dashboard);
         }
 

@@ -16,6 +16,7 @@
           <th scope="col" class="text-black-50">Titolo</th>
           <th scope="col" class="text-black-50">GitHub</th>
           <th scope="col" class="text-black-50">Tipo</th>
+          <th scope="col" class="text-black-50">Tecnologie</th>
           <th scope="col" class="text-black-50">Descrizione</th>
           <th scope="col" class="text-black-50">Modifica</th>
           <th scope="col" class="text-black-50">Elimina</th>
@@ -32,6 +33,11 @@
               </td>
               <td>
                 <span>{{ $dashboard->type ? $dashboard->type->name : '' }}</span>
+              </td>
+              <td>
+                    @foreach($dashboard->tecnologies as $tecnology) 
+                    <span>-{{ $tecnology->name }}-</span>
+                    @endforeach
               </td>
               <td>
                 <a href="{{route('admin.dashboards.show', $dashboard)}}" class="btn btn-primary btn">Dettagli</a>

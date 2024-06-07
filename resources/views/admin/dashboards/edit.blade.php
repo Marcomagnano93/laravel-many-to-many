@@ -34,6 +34,20 @@
                 <span class="input-group-text">Descrizione</span>
                 <textarea class="form-control" aria-label="With textarea" name="description">{{ $dashboard->description }}</textarea>
             </div>
+            <div class="form-group mb-3">
+                <h5>Tecnologie utilizzate:</h5>
+                <div class="d-flex gap-3">
+                    @foreach ($tecnologies as $tecnology)
+
+                    <div class="form-check">
+                        <input @checked( in_array($tecnology->id, old('tecnologies',$dashboard->tecnologies->pluck('id')->all() )) ) name="tecnologies[]" class="form-check-input" type="checkbox" value="{{ $tecnology->id }}" id="tecnology-{{$tecnology->id}}">
+                        <label class="form-check-label" for="tecnology-{{$tecnology->id}}">
+                        {{ $tecnology->name }}
+                        </label>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
 
             <div class="d-flex gap-3 my-4">
                 <a href="{{route('admin.dashboards.index')}}" class="btn btn-primary btn-lg">Indietro</a>
