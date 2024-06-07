@@ -12,4 +12,9 @@ class Tecnology extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function dashboards()
+    {
+        return $this->belongsToMany(Dashboard::class);
+    }
 }
