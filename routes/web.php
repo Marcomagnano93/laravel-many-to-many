@@ -39,11 +39,7 @@ Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
 
-        Route::get('/', function () {
-            return view('admin.type');
-        })->name('type');
-
-    
+   
     Route::resource('types', TypeController::class);
 });
 
