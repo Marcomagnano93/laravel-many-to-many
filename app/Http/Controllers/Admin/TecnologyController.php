@@ -55,7 +55,7 @@ class TecnologyController extends Controller
      */
     public function edit(Tecnology $tecnology)
     {
-        //
+        return view('admin.technologies.edit', compact('tecnology'));
     }
 
     /**
@@ -63,7 +63,15 @@ class TecnologyController extends Controller
      */
     public function update(Request $request, Tecnology $tecnology)
     {
-        //
+        $request->validate([
+            'name'=>'required|max:255',
+        ]);
+
+        $form_data = $request->all();
+
+        $tecnology->update($form_data);
+
+        return to_route('admin.technologies.index', $tecnology);
     }
 
     /**
