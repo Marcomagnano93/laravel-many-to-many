@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TecnologyController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -41,6 +42,15 @@ Route::middleware(['auth', 'verified'])
 
    
     Route::resource('types', TypeController::class);
+});
+
+Route::middleware(['auth', 'verified'])
+    ->name('admin.')
+    ->prefix('admin')
+    ->group(function () {
+
+   
+    Route::resource('technologies', TecnologyController::class);
 });
 
 Route::middleware('auth')->group(function () {
